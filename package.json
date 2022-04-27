@@ -1,0 +1,22 @@
+{
+  "name": "express-typescript-boilerplate",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jonnyalexbh/express-typescript-boilerplate.git"
+  },
+  "author": "jonnyalexbh",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jonnyalexbh/express-typescript-boilerplate/issues"
+  },
+  "homepage": "https://github.com/jonnyalexbh/express-typescript-boilerplate#readme",
+  "dependencies": {
+    "express": "^4.18.0"
+  }
+}
