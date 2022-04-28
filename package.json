@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc --w",
     "start": "tsc && node dist/app.js",
-    "start:dev": "tsc-watch --onSuccess \"node dist/app.js\""
+    "start:dev": "tsc-watch --onSuccess \"node --inspect dist/app.js\""
   },
   "repository": {
     "type": "git",
