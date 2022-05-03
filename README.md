@@ -8,6 +8,13 @@ $ npm install @types/node @types/express -D
 $ tsc -init
 ```
 
+### Install eslint airbnb
+
+```sh
+$ npm install --save-dev eslint
+$ npx eslint --init
+```
+
 <details>
 <summary><strong>Debugger VSCode</strong></summary>
 
