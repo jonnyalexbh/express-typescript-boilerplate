@@ -1,11 +1,18 @@
 import express from 'express';
-import routes from './src/routes';
+import * as routes from './src/routes';
+import { AppDataSource } from './src/data-source';
 
 const app = express();
-const PORT = 3000;
+const port = 3000;
 
-routes(app);
+routes.init(app);
 
-app.listen(PORT, () => {
-  console.log(`App listening on port ${PORT}`);
+AppDataSource.initialize()
+  .then(() => {
+    console.log('Bien');
+  })
+  .catch((error) => console.log(error));
+
+app.listen(port, () => {
+  console.log(`App listening on port ${port}`);
 });
