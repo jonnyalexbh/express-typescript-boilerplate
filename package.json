@@ -2,15 +2,15 @@
   "name": "express-typescript-boilerplate",
   "version": "1.0.0",
   "description": "",
-  "main": "app.ts",
+  "main": "src/server.ts",
   "scripts": {
-    "tsc": "tsc",
-    "start": "tsc && node ./dist/app",
-    "start:dev": "ts-node-dev app.ts",
+    "build": "tsc",
+    "start": "npm run build && node ./dist/server.js",
+    "start:dev": "ts-node-dev src/server.ts",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
     "typeorm": "typeorm-ts-node-esm",
-    "migrations": "npm run typeorm migration:run -- -d src/data-source.ts"
+    "migrations": "npm run typeorm migration:run -- -d src/config/typeorm.ts"
   },
   "repository": {
     "type": "git",
