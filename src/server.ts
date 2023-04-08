@@ -1,5 +1,6 @@
 import app from './app';
 import { appDataSource } from './config/typeorm';
+import logger from './logger';
 
 const port = 3000;
 
@@ -8,10 +9,10 @@ const server = async () => {
     await appDataSource.initialize();
 
     app.listen(port, () => {
-      console.log(`App listening on port ${port}`);
+      logger.info(`🚀 Listening on port ${port}`);
     });
   } catch (error) {
-    console.error(error);
+    logger.error(error);
   }
 };
 
