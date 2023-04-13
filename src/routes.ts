@@ -1,13 +1,11 @@
-import { Application, Request, Response } from 'express';
+import { Application } from 'express';
 
-import { User } from './entities/user';
 import { healthCheck } from './controllers/health_check';
+import { users } from './controllers/users';
 
 export const init = (app: Application): void => {
   app.get('/health', healthCheck);
 
-  app.get('/users', async (_: Request, res: Response) => {
-    const users = await User.find();
-    res.send(users);
-  });
+  /* users */
+  app.get('/users', users);
 };
