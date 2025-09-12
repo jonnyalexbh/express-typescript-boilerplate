@@ -42,6 +42,14 @@ This enterprise boilerplate provides a comprehensive foundation for developing R
 - **ts-node v10.9.2** - TypeScript execution environment
 - **nodemon v3.1.10** - Development server with live reload
 
+### Code Quality & Formatting
+- **ESLint v9.35.0** - Advanced linting with TypeScript support
+- **Prettier** - Code formatting and style consistency
+- **@typescript-eslint/parser** - TypeScript parser for ESLint
+- **@typescript-eslint/eslint-plugin** - TypeScript-specific linting rules
+- **eslint-config-prettier** - Disable ESLint rules that conflict with Prettier
+- **eslint-plugin-prettier** - Run Prettier as an ESLint rule
+
 ### TypeScript Configuration
 - **Target**: ES2020 - Modern JavaScript features for optimal performance
 - **Module**: CommonJS - Full Node.js ecosystem compatibility
@@ -109,6 +117,13 @@ npx tsc --noEmit
 
 # Build verification
 npm run build
+
+# Code linting and formatting
+npm run lint          # Run ESLint
+npm run lint:fix      # Auto-fix ESLint issues
+npm run format        # Format code with Prettier
+npm run format:check  # Check code formatting
+npm run check         # Run both linting and format checking
 ```
 
 ## 🔧 Command Reference
@@ -119,6 +134,11 @@ npm run build
 | `npm run dev:watch` | Development server with hot reload | Active development with file watching |
 | `npm run build` | TypeScript compilation to JavaScript | Pre-deployment build process |
 | `npm start` | Production server execution | Production deployment |
+| `npm run lint` | Run ESLint code analysis | Code quality checking |
+| `npm run lint:fix` | Auto-fix ESLint issues | Code quality improvement |
+| `npm run format` | Format code with Prettier | Code style consistency |
+| `npm run format:check` | Check code formatting | Pre-commit validation |
+| `npm run check` | Run linting and format checking | Complete code quality check |
 
 ## 📁 Enterprise Project Structure
 
@@ -126,18 +146,25 @@ npm run build
 express-typescript-boilerplate/
 ├── src/
 │   ├── app.ts              # 🚀 Main application entry point
-│   └── routes.ts           # 🛣️ Route definitions and handlers
+│   ├── routes.ts           # 🛣️ Route definitions and handlers
+│   └── server.ts           # 🖥️ Server startup configuration
 ├── dist/                   # 📦 Production build artifacts
 │   ├── app.js             # Compiled JavaScript application
 │   ├── app.d.ts           # TypeScript declaration files
 │   ├── app.js.map         # Source maps for debugging
 │   ├── routes.js          # Compiled route handlers
 │   ├── routes.d.ts        # Route type definitions
-│   └── routes.js.map      # Route source maps
+│   ├── routes.js.map      # Route source maps
+│   ├── server.js          # Compiled server startup
+│   ├── server.d.ts        # Server type definitions
+│   └── server.js.map      # Server source maps
 ├── node_modules/          # 📚 Dependency management
 ├── package.json           # ⚙️ Project configuration and metadata
 ├── package-lock.json      # 🔒 Dependency version lock file
 ├── tsconfig.json          # 🔧 TypeScript compiler configuration
+├── eslint.config.js       # 🔍 ESLint configuration (v9 format)
+├── .prettierrc            # 🎨 Prettier configuration
+├── .prettierignore        # 🚫 Prettier ignore patterns
 └── README.md             # 📖 Project documentation
 ```
 
@@ -145,8 +172,12 @@ express-typescript-boilerplate/
 
 - **`src/app.ts`** - Core Express application configuration and middleware setup
 - **`src/routes.ts`** - API endpoint definitions and business logic
+- **`src/server.ts`** - Server startup and port configuration
 - **`dist/`** - Production-ready compiled assets (auto-generated)
 - **`tsconfig.json`** - TypeScript compiler settings with enterprise-grade strict mode
+- **`eslint.config.js`** - ESLint configuration with TypeScript support and Prettier integration
+- **`.prettierrc`** - Prettier code formatting configuration
+- **`.prettierignore`** - Files and directories to exclude from Prettier formatting
 - **`package.json`** - Project metadata, dependency management, and build scripts
 
 ## 🌐 API Documentation
@@ -182,6 +213,44 @@ NODE_ENV=development
 API_VERSION=v1
 LOG_LEVEL=info
 ```
+
+## 🎨 Code Quality & Development Workflow
+
+### 🔍 ESLint Configuration
+The project uses ESLint v9 with TypeScript support and Prettier integration:
+
+- **TypeScript Support** - Full TypeScript parsing and linting
+- **Prettier Integration** - Automatic code formatting on save
+- **Enterprise Rules** - Strict linting rules for code quality
+- **Auto-fix** - Automatic fixing of common issues
+
+### 🎨 Prettier Configuration
+Consistent code formatting with:
+- **Single Quotes** - Consistent string formatting
+- **Semicolons** - Required at end of statements
+- **80 Character Width** - Optimal line length for readability
+- **2 Space Indentation** - Consistent indentation
+- **Trailing Commas** - ES5 compatible trailing commas
+
+### 🚀 Development Workflow
+```bash
+# 1. Start development server
+npm run dev:watch
+
+# 2. In another terminal, run quality checks
+npm run check
+
+# 3. Auto-fix issues before committing
+npm run lint:fix
+npm run format
+```
+
+### 📋 Pre-commit Checklist
+Before committing code, ensure:
+- [ ] All ESLint issues are resolved (`npm run lint`)
+- [ ] Code is properly formatted (`npm run format:check`)
+- [ ] TypeScript compilation succeeds (`npm run build`)
+- [ ] All tests pass (when implemented)
 
 ## 📝 Development Guidelines
 
@@ -243,6 +312,7 @@ src/
 ## 🚀 Enterprise Roadmap
 
 ### 🔧 Production Enhancements
+- [x] **Code Quality Tools** - ESLint v9 with TypeScript support and Prettier integration
 - [ ] **Logging & Monitoring** - Implement structured logging (Winston/Pino)
 - [ ] **Error Handling** - Global error handling middleware
 - [ ] **Data Validation** - Request/response validation (Joi/Zod)
