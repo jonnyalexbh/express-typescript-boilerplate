@@ -1,7 +1,6 @@
 {
   "name": "express-typescript-boilerplate",
   "version": "1.0.0",
-  "type": "module",
   "main": "server.js",
   "scripts": {
     "build": "tsc",
@@ -27,11 +26,13 @@
   "homepage": "https://github.com/jonnyalexbh/express-typescript-boilerplate#readme",
   "description": "",
   "dependencies": {
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "joi": "^18.0.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.35.0",
     "@types/express": "^5.0.3",
+    "@types/joi": "^17.2.2",
     "@types/node": "^24.3.1",
     "@typescript-eslint/eslint-plugin": "^8.43.0",
     "@typescript-eslint/parser": "^8.43.0",

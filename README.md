@@ -147,17 +147,21 @@ express-typescript-boilerplate/
 ├── src/
 │   ├── app.ts              # 🚀 Main application entry point
 │   ├── routes.ts           # 🛣️ Route definitions and handlers
-│   └── server.ts           # 🖥️ Server startup configuration
-├── dist/                   # 📦 Production build artifacts
-│   ├── app.js             # Compiled JavaScript application
-│   ├── app.d.ts           # TypeScript declaration files
-│   ├── app.js.map         # Source maps for debugging
-│   ├── routes.js          # Compiled route handlers
-│   ├── routes.d.ts        # Route type definitions
-│   ├── routes.js.map      # Route source maps
-│   ├── server.js          # Compiled server startup
-│   ├── server.d.ts        # Server type definitions
-│   └── server.js.map      # Server source maps
+│   ├── server.ts           # 🖥️ Server startup configuration
+│   ├── controllers/        # 🎮 Business logic controllers
+│   │   └── userController.ts
+│   ├── middlewares/        # 🔧 Custom middleware functions
+│   │   └── validation.ts
+│   ├── schemas/            # 📋 Data validation schemas
+│   │   ├── index.ts
+│   │   └── userSchemas.ts
+│   └── types/              # 🏷️ TypeScript type definitions
+│       ├── index.ts        # Main types export
+│       ├── common/         # Shared types across the application
+│       │   └── index.ts    # ValidationSchema and common interfaces
+│       └── user/           # User-specific types
+│           ├── index.ts
+│           └── userTypes.ts # UserRegistrationData interface
 ├── node_modules/          # 📚 Dependency management
 ├── package.json           # ⚙️ Project configuration and metadata
 ├── package-lock.json      # 🔒 Dependency version lock file
@@ -170,27 +174,54 @@ express-typescript-boilerplate/
 
 ### 📝 Architecture Overview
 
+#### Core Application Files
 - **`src/app.ts`** - Core Express application configuration and middleware setup
 - **`src/routes.ts`** - API endpoint definitions and business logic
 - **`src/server.ts`** - Server startup and port configuration
-- **`dist/`** - Production-ready compiled assets (auto-generated)
+
+#### Business Logic Layer
+- **`src/controllers/`** - Business logic controllers handling HTTP requests
+- **`src/middlewares/`** - Custom middleware functions for request processing
+- **`src/schemas/`** - Data validation schemas using Joi
+
+#### Type System Organization
+- **`src/types/`** - Centralized TypeScript type definitions
+  - **`src/types/common/`** - Shared types across the application (ValidationSchema, etc.)
+  - **`src/types/user/`** - User-specific types and interfaces (UserRegistrationData, etc.)
+  - **`src/types/index.ts`** - Main export file for easy type imports
+
+#### Configuration & Build
 - **`tsconfig.json`** - TypeScript compiler settings with enterprise-grade strict mode
 - **`eslint.config.js`** - ESLint configuration with TypeScript support and Prettier integration
 - **`.prettierrc`** - Prettier code formatting configuration
 - **`.prettierignore`** - Files and directories to exclude from Prettier formatting
 - **`package.json`** - Project metadata, dependency management, and build scripts
 
+> **Note:** The `dist/` directory is auto-generated during build process and contains compiled JavaScript files, type definitions, and source maps.
+
 ## 🌐 API Documentation
 
 | Method | Route | Description | Response |
 |--------|-------|-------------|----------|
-| `GET` | `/` | Health check endpoint | `"Hello World!"` |
+| `GET` | `/health` | Health check endpoint | `{"message": "Ok"}` |
+| `POST` | `/api/users/register` | User registration endpoint | `{"message": "User registered successfully", "user": {...}}` |
 
 ### 📝 API Testing
 ```bash
 # Health check endpoint
-curl http://localhost:3000/
-# Expected Response: Hello World!
+curl http://localhost:3000/health
+# Expected Response: {"message": "Ok"}
+
+# User registration endpoint
+curl -X POST http://localhost:3000/api/users/register \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "John Doe",
+    "email": "john@example.com",
+    "password": "securepassword123",
+    "age": 25
+  }'
+# Expected Response: {"message": "User registered successfully", "user": {...}}
 ```
 
 ## ⚙️ Enterprise Configuration
@@ -289,33 +320,59 @@ app.get('/api/users/:id', (req, res) => {
 ```
 src/
 ├── app.ts              # Main Express application configuration
-├── routes/             # API route definitions
-│   ├── index.ts        # Route aggregation
-│   ├── users.ts        # User management endpoints
-│   └── auth.ts         # Authentication endpoints
+├── routes.ts           # API route definitions and handlers
+├── server.ts           # Server startup configuration
 ├── controllers/        # Business logic layer
-│   ├── userController.ts
-│   └── authController.ts
-├── middleware/         # Custom middleware functions
-│   ├── auth.ts         # Authentication middleware
-│   └── validation.ts   # Request validation
-├── models/             # Data models and schemas
-│   └── User.ts
-├── services/           # Business services
+│   └── userController.ts
+├── middlewares/        # Custom middleware functions
+│   └── validation.ts   # Request validation middleware
+├── schemas/            # Data validation schemas
+│   ├── index.ts        # Schema exports
+│   └── userSchemas.ts  # User validation schemas
+├── types/              # TypeScript type definitions
+│   ├── index.ts        # Main types export
+│   ├── common/         # Shared types across application
+│   │   └── index.ts    # ValidationSchema, common interfaces
+│   └── user/           # User-specific types
+│       ├── index.ts
+│       └── userTypes.ts # UserRegistrationData interface
+├── services/           # Business services (future enhancement)
 │   ├── userService.ts
 │   └── authService.ts
-└── utils/              # Shared utilities
+├── models/             # Data models (future enhancement)
+│   └── User.ts
+└── utils/              # Shared utilities (future enhancement)
     ├── database.ts
     └── helpers.ts
+```
+
+#### 🏷️ Type System Best Practices
+
+The project implements a centralized type system following enterprise best practices:
+
+- **Separation of Concerns** - Types are separated from business logic
+- **Modular Organization** - Types grouped by domain (user, common, etc.)
+- **Easy Imports** - Index files provide clean import paths
+- **Reusability** - Common types shared across the application
+- **Maintainability** - Clear structure for adding new types
+
+```typescript
+// Example: Importing types
+import { UserRegistrationData } from '../types/user';
+import { ValidationSchema } from '../types/common';
+
+// Or import all types
+import { UserRegistrationData, ValidationSchema } from '../types';
 ```
 
 ## 🚀 Enterprise Roadmap
 
 ### 🔧 Production Enhancements
 - [x] **Code Quality Tools** - ESLint v9 with TypeScript support and Prettier integration
+- [x] **Type System Organization** - Centralized TypeScript type definitions with modular structure
+- [x] **Data Validation** - Request/response validation with Joi schemas
 - [ ] **Logging & Monitoring** - Implement structured logging (Winston/Pino)
 - [ ] **Error Handling** - Global error handling middleware
-- [ ] **Data Validation** - Request/response validation (Joi/Zod)
 - [ ] **Database Integration** - PostgreSQL/MongoDB with ORM/ODM
 - [ ] **Authentication** - JWT-based authentication system
 - [ ] **Testing Suite** - Unit and integration tests (Jest/Supertest)
